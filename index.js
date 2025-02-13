@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const MONOGO_URL = process.env.MONOG_URI;
+const MONGO_URI = process.env.MONGO_URI;
 
 
 const userRoute = require("./routes/userRoutes.js");
@@ -21,7 +21,11 @@ const threeDRoute = require("./routes/3droutes.js");
 
 
 try {
-  mongoose.connect(MONOGO_URL);
+ mongoose.connect(MONGO_URI, {
+  
+   tlsAllowInvalidCertificates: true,
+ });
+
   console.log("Connected to MongoDB");
 } catch (error) {
   console.log(error);
